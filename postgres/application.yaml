@@ -1,0 +1,30 @@
+# postgres/application.yaml
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dbandre76/Argocd
+    targetRevision: main
+    path: postgres
+    helm:
+      repoURL: https://charts.bitnami.com/bitnami
+      chart: postgresql
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: database
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

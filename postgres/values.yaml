@@ -1,0 +1,23 @@
+# postgres/values.yaml
+
+auth:
+  postgresPassword: "dba"
+  username: appuser
+  password: "dba"
+  database: appdb
+
+primary:
+  persistence:
+    enabled: true
+    size: 5Gi
+
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 250m
+    limits:
+      memory: 512Mi
+      cpu: 500m
+
+service:
+  type: ClusterIP
